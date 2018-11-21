@@ -3,6 +3,7 @@ using namespace std;
 #include <set>
 #include <string>
 #include <algorithm>
+#include <map>
 
 class Solution
 {
@@ -34,32 +35,37 @@ public:
 	static bool isSubWord(string s, string c)
 	{
 		int i = 0;
-		while(i != c.length())
+		string ss(s);
+		while (i != c.length())
 		{
-			int j = s.find_first_of(c[i]);
-			
-			if (j!=string::npos) {
-				s = s.substr(j, s.length());
+			int j = ss.find_first_of(c[i]);
+
+			if (j != string::npos)
+			{
+				ss = ss.substr(j, ss.length());
 			}
-			else {
+			else
+			{
 				return false;
 			}
 
 			i++;
-			
 		}
 		return true;
 	}
 
-	static bool compare(const string& a, const string& b)
+	static bool compare(const string &a, const string &b)
 	{
-		if (a.length() > b.length()) {
+		if (a.length() > b.length())
+		{
 			return true;
 		}
-		else if(a.length() < b.length()) {
+		else if (a.length() < b.length())
+		{
 			return false;
 		}
-		else {
+		else
+		{
 			return a.compare(b) < 0;
 		}
 	}
@@ -73,5 +79,40 @@ public:
 				return d[i];
 		}
 		return "";
+	}
+
+	int fourSumCount(vector<int> &A, vector<int> &B, vector<int> &C, vector<int> &D)
+	{
+		map<int, int> noduplicate;
+		
+		for(int i = 0; i < D.size(); i++)
+		{
+			
+		}
+		
+		int count = 0;
+		for(int i = 0; i < A.size(); i++)
+		{
+			for(int j = 0; j < B.size(); j++)
+			{
+				for(int k = 0; k < C.size(); k++)
+				{
+					int left = -(A[i] + B[j] + C[k]);
+					vector<int>::iterator ite1 = find(D.begin(), D.end(), left);
+					
+					if (ite1 != D.end()) {
+						count++;
+					}
+					
+				}
+			}
+		}
+
+		return count;
+	}
+
+	bool binarySearch(vector<int> &A, int target)
+	{
+
 	}
 };
