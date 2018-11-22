@@ -33,22 +33,21 @@ public:
 
 	static bool isSubWord(string s, string c)
 	{
-		int i = 0;
-		while(i != c.length())
+		int j = 0;
+		for(int i = 0; i < s.length(); i++)
 		{
-			int j = s.find_first_of(c[i]);
-			
-			if (j!=string::npos) {
-				s = s.substr(j, s.length());
-			}
-			else {
-				return false;
+			if(s[i] == c[j])
+			{
+				j++;
 			}
 
-			i++;
 			
+			if (j == c.length) {
+				return true;
+			}
 		}
-		return true;
+		
+		return false;
 	}
 
 	static bool compare(const string& a, const string& b)
