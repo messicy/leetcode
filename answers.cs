@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class TreeNode {
+public class TreeNode
+{
 	public int val;
 	public TreeNode left;
 	public TreeNode right;
@@ -12,39 +13,68 @@ public class TreeNode {
 
 public IList<IList<int>> ZigzagLevelOrder(TreeNode root)
 {
-		IList<IList<int>> ret = new List<IList<int>>();
-		List<TreeNode> nodes = new List<TreeNode>();
-		nodes.Add(root);
-		int index = 0;
-		bool order = true;
-		while (nodes.Count != index)
+	IList<IList<int>> ret = new List<IList<int>>();
+
+	if (null == root) return ret;
+
+	List<TreeNode> nodes = new List<TreeNode>();
+	nodes.Add(root);
+	int index = 0;
+	bool order = true;
+	while (nodes.Count != index)
+	{
+		IList<int> element = new List<int>();
+		int i = index;
+		int count = nodes.Count;
+		for (; i < count; i++)
 		{
-				IList<int> element = new List<int>();
-				int i = index;
-				for (; i < nodes.Count; i++)
-				{
-						element.Add(nodes[i].val);
-						if (nodes[i].left != null)
-						{
-								nodes.Add(nodes[i].left);
-						}
+			element.Add(nodes[i].val);
+			if (nodes[i].left != null)
+			{
+				nodes.Add(nodes[i].left);
+			}
 
-						if (nodes[i].right != null)
-						{
-								nodes.Add(nodes[i].right);
-						}
-				}
-
-				index = i;
-
-				if (!order)
-				{
-						element = element.Reverse().ToList();
-				}
-
-				order = !order;
-				ret.Add(element);
+			if (nodes[i].right != null)
+			{
+				nodes.Add(nodes[i].right);
+			}
 		}
 
-		return ret;
+		index = i;
+
+		if (!order)
+		{
+			element = element.Reverse().ToList();
+		}
+
+		order = !order;
+		ret.Add(element);
+	}
+
+	return ret;
+}
+
+public int MajorityElement(int[] nums)
+{
+	if (nums.Length == 1)
+	{
+		return nums[0];
+	}
+	Dictionary<int, int> record = new Dictionary<int, int>();
+	foreach (var num in nums)
+	{
+		if (record.ContainsKey(num))
+		{
+			record[num]++;
+			if (record[num] > nums.Length / 2)
+			{
+				return num;
+			}
+		}
+		else
+		{
+			record.Add(num, 1);
+		}
+	}
+	return 0;
 }
