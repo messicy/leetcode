@@ -78,3 +78,37 @@ public int MajorityElement(int[] nums)
 	}
 	return 0;
 }
+
+private List<int> sorted = new List<int>();
+
+public void Inorder(TreeNode root)
+{
+	if (null != root.left)
+	{
+		Inorder(root.left);
+	}
+
+	sorted.Add(root.val);
+
+	if (null != root.right)
+	{
+		Inorder(root.right);
+	}
+}
+
+public int MinDiffInBST(TreeNode root)
+{
+	int min = int.MaxValue;
+
+	Inorder(root);
+
+	for (int i = 0; i < sorted.Count - 2; i++)
+	{
+		int t = sorted[i + 1] - sorted[i];
+		if (t < min)
+		{
+			min = t;
+		}
+	}
+	return min;
+}
