@@ -102,7 +102,7 @@ public int MinDiffInBST(TreeNode root)
 
 	Inorder(root);
 
-	for (int i = 0; i < sorted.Count - 2; i++)
+	for (int i = 0; i < sorted.Count - 1; i++)
 	{
 		int t = sorted[i + 1] - sorted[i];
 		if (t < min)
