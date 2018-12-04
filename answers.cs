@@ -112,3 +112,38 @@ public int MinDiffInBST(TreeNode root)
 	}
 	return min;
 }
+
+public int[] NextGreaterElement(int[] findNums, int[] nums) {
+        Dictionary<int, int> indexDict = new Dictionary<int, int>();
+		Stack<int> sortedNum = new Stack<int>();
+		Stack<int> temp = new Stack<int>();
+		for (int i = 0; i < nums.Length; i++)
+		{
+			while (sortedNum.Count != 0 && sortedNum.Peek() < nums[i])
+			{
+				int num = sortedNum.Pop();
+				indexDict.Add(num, nums[i]);
+				temp.Push(num);
+			}
+
+			while (temp.Count != 0)
+			{
+				sortedNum.Push(temp.Pop());
+			}
+		}
+
+		List<int> ret = new List<int>();
+		for (int i = 0; i < findNums.Length; i++)
+		{
+			if (indexDict.ContainsKey(findNums[i]))
+			{
+				ret.Add(indexDict[findNums[i]]);
+			}
+			else
+			{
+				ret.Add(-1);
+			}
+		}
+
+		return ret.ToArray();
+	}
