@@ -147,3 +147,41 @@ public int[] NextGreaterElement(int[] findNums, int[] nums) {
 
 		return ret.ToArray();
 	}
+
+	public int MinAddToMakeValid(string S)
+	{
+		Stack<char> str = new Stack<char>();
+		Stack<char> temp = new Stack<char>();
+		bool needPush = true;
+		int bad = 0;
+		foreach (var s in S)
+		{
+			if (s == ')')
+			{
+				while (str.Count != 0 && str.Peek() != '(')
+				{
+					temp.Push(str.Pop());
+				}
+
+				if (str.Count != 0)
+				{
+					str.Pop();
+					needPush = false;
+				}
+				while (temp.Count != 0)
+				{
+					str.Push(temp.Pop());
+				}
+
+				if (needPush)
+				{
+					bad++;
+				}
+			}
+			else
+			{
+				str.Push(s);
+			}
+		}
+		return str.Count + bad;
+	}
